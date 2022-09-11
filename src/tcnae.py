@@ -160,6 +160,7 @@ class TCNAE:
                             verbose=keras_verbose)
         if verbose > 0:
             print("> Training Time :", round(time.time() - start), "seconds.")
+        return history
     
     def predict(self, test_X):
         X_rec =  self.model.predict(test_X)
@@ -177,3 +178,6 @@ class TCNAE:
         anomaly_score = numpy.convolve(sq_mahalanobis, numpy.ones((50,))/50, mode='same')
         anomaly_score = numpy.sqrt(anomaly_score)
         return anomaly_score
+
+    def save(self, path):
+        self.model.save(path)
